@@ -5,7 +5,7 @@ metadata:
   name: artists
   description: Everything about artists
 spec:
-  owner: artist-relations-team
+  owner: account.allUsers
 
 ---
 
@@ -14,9 +14,9 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: artist-engagement-portal
-  description: Handy tools to keep artists in the loop
+  description: Tools to keep artists engaged
 spec:
-  owner: artist-relations-team
+  owner: account.allUsers
   domain: artists
 
 ---
@@ -35,6 +35,20 @@ spec:
   members: [jdoe]
 
 ---
+
+# User: Jenny Doe
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jdoe
+spec:
+  profile:
+    displayName: Jenny Doe
+    email: jenny-doe@example.com
+  memberOf: [artist-relations-team]
+
+---
+
 # Resource: Artists Database
 apiVersion: backstage.io/v1alpha1
 kind: Resource
@@ -43,7 +57,7 @@ metadata:
   description: Stores artist details
 spec:
   type: database
-  owner: artist-relations-team
+  owner: account.allUsers
   system: artist-engagement-portal
 
 ---
@@ -57,7 +71,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: production
-  owner: artist-relations-team
+  owner: account.allUsers
   system: artist-engagement-portal
   definition: https://api.example.com/artist-service/openapi.yaml
 
@@ -81,7 +95,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: artist-relations-team
+  owner: account.allUsers
   system: artist-engagement-portal
   providesApis:
     - artist-service-api
@@ -108,19 +122,7 @@ metadata:
 spec:
   type: website
   lifecycle: production
-  owner: artist-relations-team
+  owner: account.allUsers
   system: artist-engagement-portal
   dependsOn:
     - component:artist-service
-
----
-
-# Location: Organizational Data
-apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: org-data
-spec:
-  type: url
-  targets:
-    - https://github.com/adiyaar24/samplebackstage/edit/main/catalog-info.yaml
