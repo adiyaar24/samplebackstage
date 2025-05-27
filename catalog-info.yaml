@@ -8,3 +8,12 @@ spec:
   owner: _all_account_users
 
 
+--- 
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: order-management
+  description: Handles all order processing and tracking
+spec:
+  owner: _all_account_users
+  domain: payments
