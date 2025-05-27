@@ -17,3 +17,16 @@ metadata:
 spec:
   owner: _all_account_users
   domain: payments
+
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: order-service
+  description: Service responsible for processing orders
+spec:
+  type: service
+  lifecycle: production
+  owner: _all_account_users
+  system: order-management
