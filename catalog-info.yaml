@@ -1,0 +1,126 @@
+# Domain: Artists
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: artists
+  description: Everything about artists
+spec:
+  owner: artist-relations-team
+
+---
+
+# System: Artist Engagement Portal
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: artist-engagement-portal
+  description: Handy tools to keep artists in the loop
+spec:
+  owner: artist-relations-team
+  domain: artists
+
+---
+
+# Group: Artist Relations Team
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: artist-relations-team
+  description: Team responsible for artist relations
+spec:
+  type: team
+  profile:
+    displayName: Artist Relations Team
+    email: artist-relations@example.com
+  members: [jdoe]
+
+---
+# Resource: Artists Database
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: artists-db
+  description: Stores artist details
+spec:
+  type: database
+  owner: artist-relations-team
+  system: artist-engagement-portal
+
+---
+
+# API: Artist Service API
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: artist-service-api
+  description: API for artist service
+spec:
+  type: openapi
+  lifecycle: production
+  owner: artist-relations-team
+  system: artist-engagement-portal
+  definition: https://api.example.com/artist-service/openapi.yaml
+
+---
+
+# Component: Artist Service
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: artist-service
+  description: Backend service for artist operations
+  annotations:
+    harness.io/project-url: https://app.harness.io/ng/account/accountid/cd/orgs/orgid/projects/projectid
+    github.com/project-slug: github/example-org/artist-service
+  tags:
+    - java
+  links:
+    - url: https://admin.example-org.com
+      title: Admin Dashboard
+      type: admin-dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: artist-relations-team
+  system: artist-engagement-portal
+  providesApis:
+    - artist-service-api
+  dependsOn:
+    - resource:artists-db
+
+---
+
+# Component: Artist Web
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: artist-web
+  description: Frontend web application for artists
+  annotations:
+    harness.io/project-url: https://app.harness.io/ng/account/accountid/cd/orgs/orgid/projects/projectid
+    github.com/project-slug: github/example-org/artist-web
+  tags:
+    - react
+  links:
+    - url: https://artist.example.com
+      title: Artist Portal
+      type: website
+spec:
+  type: website
+  lifecycle: production
+  owner: artist-relations-team
+  system: artist-engagement-portal
+  dependsOn:
+    - component:artist-service
+
+---
+
+# Location: Organizational Data
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: org-data
+spec:
+  type: url
+  targets:
+    - https://github.com/example-org/catalog-info.yaml
