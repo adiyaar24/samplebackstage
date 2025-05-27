@@ -30,3 +30,20 @@ spec:
   lifecycle: production
   owner: _all_account_users
   system: order-management
+
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: order-api
+  description: API for order processing
+spec:
+  type: openapi
+  lifecycle: production
+  owner: order-team
+  system: order-management
+  definition: https://api.example.com/order/openapi.yaml
+
+  
