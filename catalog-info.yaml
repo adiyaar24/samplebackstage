@@ -42,7 +42,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: production
-  owner: order-team
+  owner: _all_account_users
   system: order-management
   definition: https://api.example.com/order/openapi.yaml
 
