@@ -46,4 +46,17 @@ spec:
   system: order-management
   definition: https://api.example.com/order/openapi.yaml
 
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: order-db
+  description: Database storing order information
+spec:
+  type: database
+  owner: _all_account_users
+  system: order-management
+
   
