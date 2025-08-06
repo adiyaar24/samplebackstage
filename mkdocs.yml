@@ -1,4 +1,4 @@
 site_name: Sample Backstage Docs
+docs_dir: docs
 nav:
-  - Home: README.md
-docs_dir: .
+  - Home: index.md
